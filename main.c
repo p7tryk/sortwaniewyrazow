@@ -34,11 +34,26 @@ int SortFileWords(const char* inFileName, const char* outFileName)
       return 0;
     }
   //liczenie
-    while(fscanf(infile,"%255s",word)>0) {
-    nChars+=strlen(word);
-    nWords++;
+    /* while(fscanf(infile,"%255s",word)>0) { */
+    /* nChars+=strlen(word); */
+    /* nWords++; */
+    /* } */
+    /* nChars+=8; // what the fuck? */
+
+  //liczenie na prawde
+  char ch;
+  while ((ch = fgetc(infile)) != EOF)
+    {
+      nChars++;
+      /* Check words */
+      if (ch == ' ' || ch == '\t' || ch == '\n' || ch == '\0')
+	nWords++;
     }
-    nChars+=8; // what the fuck? 
+  
+
+
+
+    
     
     printf ("Wyrazy %d\n",nWords);
     printf ("Znaki %d\n",nChars);

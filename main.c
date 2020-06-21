@@ -104,7 +104,9 @@ int SortFileWords(const char* inFileName, const char* outFileName)
 	printf("%s\n", ppWords[i]);
       }
     printf("\n");
-    //sortowanie
+
+    
+    //sortowanie selection sort
     for(int i=0;i<nWords;i++)
     {
       int k=i;
@@ -112,7 +114,7 @@ int SortFileWords(const char* inFileName, const char* outFileName)
       
       for(int n=i+1; n<nWords; n++)
 	{
-	  if(strcmp(ppWords[n],temp2)<0)
+	  if(strcmp(ppWords[n],temp2)<0) //tutaj tylko zamienic zwykly warunek na strcmp()
 	    {
 	      k=n;
 	      temp2=ppWords[n];

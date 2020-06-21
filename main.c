@@ -73,7 +73,7 @@ int SortFileWords(const char* inFileName, const char* outFileName)
         }
         printf ("%c",pTextData[i]);
     }
-    //dodawania wskaŸników na s³owa
+    //dodawania wskaznikow na slowa
     ppWords[0]=&pTextData[0]; //przekazywales chary zamiast wzkaznikow
     printf ("%c",ppWords[0]);
     int a=1;

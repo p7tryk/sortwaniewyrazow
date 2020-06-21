@@ -4,12 +4,6 @@
 #include <ctype.h>
 #define MAXWORDLEN 256
 
-char word[MAXWORDLEN];
-int nChars=0;
-int nWords=0;
-char* pTextData;
-char** ppWords;
-int temp;
 
 /*int counter()
 {
@@ -23,14 +17,23 @@ int temp;
 }*/
 int SortFileWords(const char* inFileName, const char* outFileName)
 {
-    //otwieranie pliku
-    FILE *infile;
-    if((infile=fopen(inFileName,"r"))==NULL)
+  char word[MAXWORDLEN];
+  int nChars=0;
+  int nWords=0;
+  char* pTextData;
+  char** ppWords;
+  int temp;
+ 
+
+  
+  //otwieranie pliku
+  FILE *infile;
+  if((infile=fopen(inFileName,"r"))==NULL)
     {
-        printf("Blad");
-        return 0;
+      printf("Blad");
+      return 0;
     }
-    //liczenie
+  //liczenie
     while(fscanf(infile,"%255s",word)>0) {
     nChars+=strlen(word);
     nWords++;
@@ -41,8 +44,8 @@ int SortFileWords(const char* inFileName, const char* outFileName)
     pTextData=(char*)malloc((nChars+nWords)*sizeof(char));
     ppWords=(char**)calloc(nWords,sizeof(char*));
     //uzupe³nianie
-
-
+    fclose(infile);
+    infile=fopen(inFileName,"rt");
     for(int i=0;i<nChars+nWords;i++)
     {
         pTextData[i]=fgetc(infile);
@@ -53,7 +56,6 @@ int SortFileWords(const char* inFileName, const char* outFileName)
         }
         printf ("%c",pTextData[i]);
     }
-    
     //dodawania wskaŸników na s³owa
     ppWords[0]=pTextData[0];
     printf ("%c",ppWords[0]);
@@ -66,23 +68,46 @@ int SortFileWords(const char* inFileName, const char* outFileName)
             printf ("%c",ppWords[a]);
             a++;
         }
-	printf("\n");
     }
 
     //sortowanie wsyep
     //sortowanie
-    for(int i=0;i<nWords;i++)
-    {
-        int k=i;
-        for(int j=i+1;j<nWords;j++)
-        {
 
-        }
+    char * temp2;
+
+    int n;
+    int i;
+    int k;
+    for(i=0;i<nWords;i++)
+    {
+      k=i;
+      temp2=ppWords[i];
+      for(n=i+1; n<nWords; n++)
+	{
+	  if(strcmp(ppWords[n],temp2))
+	    {
+	      k=n;
+	      temp2=ppWords[n];
+	    }
+	}
+      ppWords[k]=ppWords[i];
+      ppWords[i]=temp2;
     }
     //zapisywanie do pliku
     fclose(infile);
     FILE* outfile;
-    infile=fopen(inFileName,"r");
+    outfile=fopen(outFileName,"w");
+
+    for(int i=1;i<nChars+nWords-1;i++)
+    {
+        if(pTextData[i]=='\0')
+        {
+            ppWords[a]=pTextData[i+1];
+            fprintf(outfile,"%c",ppWords[a]);
+            a++;
+        }
+    }
+
 
 
 }

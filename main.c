@@ -129,8 +129,8 @@ int SortFileWords(const char* inFileName, const char* outFileName)
 
     for(int i = 0; i<nWords; i++)
       {
-	printf("%p ", ppWords[i]);
-	printf("%s\n", ppWords[i]);
+	/* fprintf("%p ", ppWords[i]); */
+	fprintf(outfile,"%s\n", ppWords[i]);
       }
     printf("\n");
 

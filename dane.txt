@@ -1,1 +1,9 @@
-Kolejnym etapem jest posortowanie wyrazów. Jednak skoro ppWords jest tablicą wskaźników na słowa, nie ma potrzeby kopiować całych tekstów. Wystarczy zmienić kolejność wskaźników w tablicy ppWords, tak aby kolejne elementy wskazywały na łańcuchy, w takiej kolejności aby spełniało założone kryterium, na przykład
+Blazejeski
+Kowalczyk
+Kowalski
+Nowak
+Bogusz
+Boguszewski
+Jurga
+Grzegozewska
+Grzegozewski

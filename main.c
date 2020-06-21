@@ -38,6 +38,8 @@ int SortFileWords(const char* inFileName, const char* outFileName)
     nChars+=strlen(word);
     nWords++;
     }
+    nChars+=8; // what the fuck? 
+    
     printf ("Wyrazy %d\n",nWords);
     printf ("Znaki %d\n",nChars);
     //alokacja
@@ -57,14 +59,14 @@ int SortFileWords(const char* inFileName, const char* outFileName)
         printf ("%c",pTextData[i]);
     }
     //dodawania wskaŸników na s³owa
-    ppWords[0]=pTextData[0];
+    ppWords[0]=&pTextData[0]; //przekazywales chary zamiast wzkaznikow
     printf ("%c",ppWords[0]);
     int a=1;
     for(int i=1;i<nChars+nWords-1;i++)
     {
         if(pTextData[i]=='\0')
         {
-            ppWords[a]=pTextData[i+1];
+            ppWords[a]=&pTextData[i+1];
             printf ("%c",ppWords[a]);
             a++;
         }
@@ -75,16 +77,27 @@ int SortFileWords(const char* inFileName, const char* outFileName)
 
     char * temp2;
 
-    int n;
-    int i;
-    int k;
-    for(i=0;i<nWords;i++)
+    /* for(int i=0;i<nWords;i++) */
+    /*   { */
+    /* 	printf("%p\n",ppWords[i]); */
+    /*   } */
+
+    printf("\n"); 
+   for(int i = 0; i<nWords; i++)
+      {
+	printf("%p ", ppWords[i]);
+	printf("%s\n", ppWords[i]);
+      }
+    printf("\n");
+    //sortowanie
+    for(int i=0;i<nWords;i++)
     {
-      k=i;
+      int k=i;
       temp2=ppWords[i];
-      for(n=i+1; n<nWords; n++)
+      
+      for(int n=i+1; n<nWords; n++)
 	{
-	  if(strcmp(ppWords[n],temp2))
+	  if(strcmp(ppWords[n],temp2)<0)
 	    {
 	      k=n;
 	      temp2=ppWords[n];
@@ -93,22 +106,20 @@ int SortFileWords(const char* inFileName, const char* outFileName)
       ppWords[k]=ppWords[i];
       ppWords[i]=temp2;
     }
+
     //zapisywanie do pliku
     fclose(infile);
     FILE* outfile;
     outfile=fopen(outFileName,"w");
 
-    for(int i=1;i<nChars+nWords-1;i++)
-    {
-        if(pTextData[i]=='\0')
-        {
-            ppWords[a]=pTextData[i+1];
-            fprintf(outfile,"%c",ppWords[a]);
-            a++;
-        }
-    }
+    for(int i = 0; i<nWords; i++)
+      {
+	printf("%p ", ppWords[i]);
+	printf("%s\n", ppWords[i]);
+      }
+    printf("\n");
 
-
+    printf("%s",pTextData);
 
 }
 int main()
